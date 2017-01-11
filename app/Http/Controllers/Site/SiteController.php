@@ -65,8 +65,8 @@ class SiteController extends Controller
             ->orderBy('id', 'desc')
             ->get();
         //put cache
-        // $html = view('site.index', ['data' => $data, 'seo' => $seo, 'homesliders' => $homesliders])->render();
-        // Cache::forever($cacheName, $html);
+        $html = view('site.index', ['data' => $data, 'seo' => $seo, 'homesliders' => $homesliders])->render();
+        Cache::forever($cacheName, $html);
         //return view
         return view('site.index', ['data' => $data, 'seo' => $seo, 'homesliders' => $homesliders]);
     }
@@ -81,9 +81,9 @@ class SiteController extends Controller
             $cacheName = $cacheName.'_mobile';
         }
         //get cache
-        // if(Cache::has($cacheName)) {
-        //     return Cache::get($cacheName);
-        // }
+        if(Cache::has($cacheName)) {
+            return Cache::get($cacheName);
+        }
         //query
         $tag = DB::table('post_tags')
             ->select('id', 'name', 'slug', 'summary', 'description', 'image', 'meta_title', 'meta_keyword', 'meta_description', 'meta_image')
@@ -107,8 +107,8 @@ class SiteController extends Controller
                     $tag->meta_description = $tagNameNoLatin.', '.$tag->name.' - donoithat.org';
                 }
                 //put cache
-                // $html = view('site.post.tag', ['data' => $data, 'tag' => $tag])->render();
-                // Cache::forever($cacheName, $html);
+                $html = view('site.post.tag', ['data' => $data, 'tag' => $tag])->render();
+                Cache::forever($cacheName, $html);
                 //return view
                 return view('site.post.tag', ['data' => $data, 'tag' => $tag]);
             }
@@ -131,9 +131,9 @@ class SiteController extends Controller
             $cacheName = $cacheName.'_mobile';
         }
         //get cache
-        // if(Cache::has($cacheName)) {
-        //     return Cache::get($cacheName);
-        // }
+        if(Cache::has($cacheName)) {
+            return Cache::get($cacheName);
+        }
         // IF SLUG IS PAGE
         //query
         $singlePage = DB::table('pages')->where('slug', $slug)->where('status', ACTIVE)->first();
@@ -141,8 +141,8 @@ class SiteController extends Controller
         if(isset($singlePage)) {
             $singlePage->summary = CommonMethod::replaceText($singlePage->summary);
             //put cache
-            // $html = view('site.page', ['data' => $singlePage])->render();
-            // Cache::forever($cacheName, $html);
+            $html = view('site.page', ['data' => $singlePage])->render();
+            Cache::forever($cacheName, $html);
             //return view
             return view('site.page', ['data' => $singlePage]);
         }        
@@ -187,8 +187,8 @@ class SiteController extends Controller
                 $typeChild = null;
             }
             //put cache
-            // $html = view('site.post.type', ['data' => $data, 'type' => $type, 'typeChild' => $typeChild, 'total' => $total, 'paginate' => $paginate])->render();
-            // Cache::forever($cacheName, $html);
+            $html = view('site.post.type', ['data' => $data, 'type' => $type, 'typeChild' => $typeChild, 'total' => $total, 'paginate' => $paginate])->render();
+            Cache::forever($cacheName, $html);
             //return view
             return view('site.post.type', ['data' => $data, 'type' => $type, 'typeChild' => $typeChild, 'total' => $total, 'paginate' => $paginate]);
         }
@@ -242,16 +242,16 @@ class SiteController extends Controller
                 $view = 'site.post.show';
             }
             //put cache
-            // $html = view($view, [
-            //         'post' => $post, 
-            //         'tags' => $tags, 
-            //         'postTypes' => $postTypes, 
-            //         'postRelated' => $postRelated, 
-            //         'typeMain' => $typeMain, 
-            //         'related' => $related, 
-            //         'typeMainParent' => $typeMainParent, 
-            //     ])->render();
-            // Cache::forever($cacheName, $html);
+            $html = view($view, [
+                    'post' => $post, 
+                    'tags' => $tags, 
+                    'postTypes' => $postTypes, 
+                    'postRelated' => $postRelated, 
+                    'typeMain' => $typeMain, 
+                    'related' => $related, 
+                    'typeMainParent' => $typeMainParent, 
+                ])->render();
+            Cache::forever($cacheName, $html);
             //return view
             return view($view, [
                     'post' => $post, 
@@ -277,9 +277,9 @@ class SiteController extends Controller
             $cacheName = $cacheName.'_mobile';
         }
         //get cache
-        // if(Cache::has($cacheName)) {
-        //     return Cache::get($cacheName);
-        // }
+        if(Cache::has($cacheName)) {
+            return Cache::get($cacheName);
+        }
         //query
         $type = $this->getPostTypeBySlug($slug2, 1);
         $typeParent = $this->getPostTypeBySlug($slug1);
@@ -290,8 +290,8 @@ class SiteController extends Controller
             if($total > 0) {
                 $seriParent = $this->getPostTypeById($type->parent_id);
                 //put cache
-                // $html = view('site.post.type', ['data' => $data, 'type' => $type, 'total' => $total, 'paginate' => $paginate, 'seriParent' => $seriParent])->render();
-                // Cache::forever($cacheName, $html);
+                $html = view('site.post.type', ['data' => $data, 'type' => $type, 'total' => $total, 'paginate' => $paginate, 'seriParent' => $seriParent])->render();
+                Cache::forever($cacheName, $html);
                 //return view
                 return view('site.post.type', ['data' => $data, 'type' => $type, 'total' => $total, 'paginate' => $paginate, 'seriParent' => $seriParent]);
             }
@@ -313,9 +313,9 @@ class SiteController extends Controller
             $cacheName = $cacheName.'_mobile';
         }
         //get cache
-        // if(Cache::has($cacheName)) {
-        //     return Cache::get($cacheName);
-        // }
+        if(Cache::has($cacheName)) {
+            return Cache::get($cacheName);
+        }
         //query
         // post
         $slug = CommonMethod::convert_string_vi_to_en($request->name);
@@ -328,8 +328,8 @@ class SiteController extends Controller
             ->orderBy('start_date', 'desc')
             ->paginate(PAGINATE);
         //put cache
-        // $html = view('site.post.search', ['data' => $data->appends($request->except('page')), 'request' => $request])->render();
-        // Cache::forever($cacheName, $html);
+        $html = view('site.post.search', ['data' => $data->appends($request->except('page')), 'request' => $request])->render();
+        Cache::forever($cacheName, $html);
         //return view
         return view('site.post.search', ['data' => $data->appends($request->except('page')), 'request' => $request]);
     }
@@ -338,14 +338,14 @@ class SiteController extends Controller
         ///cache name
         $cacheName = 'sitemap';
         //get cache
-        // if(Cache::has($cacheName)) {
-        //     $content = Cache::get($cacheName);
-        //     return response($content)->header('Content-Type', 'text/xml;charset=utf-8');
-        // }
+        if(Cache::has($cacheName)) {
+            $content = Cache::get($cacheName);
+            return response($content)->header('Content-Type', 'text/xml;charset=utf-8');
+        }
         //query
         //put cache
-        // $html = view('site.sitemap')->render();
-        // Cache::forever($cacheName, $html);
+        $html = view('site.sitemap')->render();
+        Cache::forever($cacheName, $html);
         //return view
         $content = view('site.sitemap');
         return response($content)->header('Content-Type', 'text/xml;charset=utf-8');
