@@ -3,8 +3,9 @@
 // Route::resource('test', 'TestController');
 
 // Route::post('/order', 'SiteController@order');
-Route::post('/unlove', 'SiteController@unlove');
-Route::post('/love', 'SiteController@love');
+Route::get('/loadlove', 'SiteController@loadlove');
+Route::get('/unlove', 'SiteController@unlove');
+Route::get('/love', 'SiteController@love');
 Route::post('/contact', 'SiteController@contact');
 Route::get('/sitemap.xml', 'SiteController@sitemap');
 Route::get('/tim-kiem', ['uses' => 'SiteController@search', 'as' => 'site.search']);

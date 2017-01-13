@@ -44,7 +44,7 @@
 
   </div>
 
-  <div class="loved">@include('site.common.loved')</div>
+  <div class="loved"></div>
 
   @include('site.common.bottom')
 
@@ -52,8 +52,6 @@
 </div>
 
 <a class="gotop" href="#" title="Lên đầu trang" rel="nofollow"><i class="fa fa-chevron-circle-up" aria-hidden="true"></i></a>
-
-{!! csrf_field() !!}
 
 <script src="{{ asset('js/app.js') }}"></script>
 @if(isset($isProduct) && $isProduct == true)

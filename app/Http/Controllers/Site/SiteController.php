@@ -508,6 +508,11 @@ class SiteController extends Controller
         }
         return;
     }
+    //load love
+    public function loadlove()
+    {
+        return view('site.common.loved')->render();
+    }
     //order
     public function order(Request $request)
     {

@@ -4,7 +4,7 @@
 	}
 ?>
 <div class="box-list box-mix">
-	<div class="row small-up-2 medium-up-6 large-up-6">
+	<div class="row small-up-1 medium-up-2 large-up-2">
 		@foreach($data as $key => $value)
 		<?php 
 			if(isset($type) && isset($value->parent_id)) {

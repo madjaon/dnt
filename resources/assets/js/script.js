@@ -37,14 +37,11 @@ function mclose()
 gototop();
 function gototop()
 {
-    // $(".gotop").hide();
     $(window).scroll(function() {
         if ($(this).scrollTop() > 10) {
             $('.gotop').addClass('gototop');
-            // $('.gotop').fadeIn();
         } else {
             $('.gotop').removeClass('gototop');
-            // $('.gotop').fadeOut();
         }
     });
     $('.gotop').click(function() {
@@ -68,16 +65,11 @@ function gototop()
 // }
 function makelove(id)
 {
-    var csrf_token = $('input[name="_token"]').val();
     $.ajax({
-        type: 'post',
+        type: 'GET',
         url : '/love',
         data:{
             'id' : id,
-            '_token': csrf_token
-        },
-        beforeSend: function(){
-            //
         },
         success: function(data)
         {
@@ -87,37 +79,35 @@ function makelove(id)
                 $('.loved').hide().html(data).fadeIn(600);
             }
             return;
-            // if(data==2) {
-            //     alert('Hệ thống đang bận');
-            //     return;
-            // } else if(data==3) {
-            //     alert('Sản phẩm này đã được thêm trước đó');
-            //     return;
-            // } else {
-            //     alert('Đã thêm vào danh sách yêu thích');
-            //     return;
-            // }
         }
     });
 }
 function unlove(rowId)
 {
-    var csrf_token = $('input[name="_token"]').val();
     $.ajax({
-        type: 'post',
+        type: 'GET',
         url : '/unlove',
         data:{
             'rowId' : rowId,
-            '_token': csrf_token
-        },
-        beforeSend: function(){
-            //
         },
         success: function(data)
         {
             if(data != 2) {
                 $('.loved').hide().html(data).fadeIn(600);
             }
+            return;
+        }
+    });
+}
+loadlove();
+function loadlove()
+{
+    $.ajax({
+        type: 'GET',
+        url : '/loadlove',
+        success: function(data)
+        {
+            $('.loved').hide().html(data).fadeIn(600);
             return;
         }
     });
@@ -128,7 +118,7 @@ function unlove(rowId)
 //     var name = $('input[name="name"]').val();
 //     var email = $('input[name="email"]').val();
 //     var tel = $('input[name="tel"]').val();
-//     var csrf_token = $('input[name="_token"]').val();
+//     var token = $('meta[name="csrf_token"]').attr('content');
 //     if(id == '' || name == '' || email == '' || tel == '') {
 //         alert('Mời bạn nhập đầy đủ thông tin');
 //         return;
@@ -141,10 +131,12 @@ function unlove(rowId)
 //             'name' : name,
 //             'email' : email,
 //             'tel' : tel,
-//             '_token': csrf_token
+//             '_token': token
 //         },
-//         beforeSend: function(){
-//             //
+//         beforeSend: function(xhr){
+//             if (token) {
+//                 return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+//             }
 //         },
 //         success: function(data)
 //         {

@@ -38,4 +38,5 @@
 	<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 	<title>@yield('title')</title>
 	@if(!empty($configcode)){!! $configcode !!}@endif
+	<!-- <meta name="csrf_token" content="{{-- csrf_token() --}}" /> -->
 </head>

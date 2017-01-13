@@ -86,7 +86,7 @@
 				<!-- <form method="post" class="ordernow" id="ordernow">
 					<fieldset>
 						<legend>Đặt hàng nhanh</legend>
-						<input type="hidden" name="id" value="{{ $post->id }}" />
+						<input type="hidden" name="id" value="{{-- $post->id --}}" />
 						<p><label>Họ tên</label><input type="text" name="name" required="" maxlength="255" /></p>
 						<p><label>Email</label><input type="email" name="email" required="" maxlength="255" /></p>
 						<p><label>Điện thoại</label><input type="text" name="tel" required="" maxlength="255" /></p>
