@@ -61,14 +61,40 @@ class AppServiceProvider extends ServiceProvider
         view()->share('confighotline', $config->hotline);
         view()->share('configaddress', $config->address);
         //all menu
+        //current url
+        $currentUrl = url()->current();
         //topmenu
-        view()->share('topmenu', self::getMenu());
+        if(Cache::has('menutype1'.$currentUrl)) {
+            $menutype1 = Cache::get('menutype1'.$currentUrl);
+        } else {
+            $menutype1 = self::getMenu();
+            Cache::forever('menutype1'.$currentUrl, $menutype1);
+        }
+        view()->share('topmenu', $menutype1);
         //sidemenu
-        view()->share('sidemenu', self::getMenu(MENUTYPE2));
+        if(Cache::has('menutype2')) {
+            $menutype2 = Cache::get('menutype2');
+        } else {
+            $menutype2 = self::getMenu(MENUTYPE2);
+            Cache::forever('menutype2', $menutype2);
+        }
+        view()->share('sidemenu', $menutype2);
         //bottommenu
-        view()->share('bottommenu', self::getMenu(MENUTYPE3));
+        if(Cache::has('menutype3')) {
+            $menutype3 = Cache::get('menutype3');
+        } else {
+            $menutype3 = self::getMenu(MENUTYPE3);
+            Cache::forever('menutype3', $menutype3);
+        }
+        view()->share('bottommenu', $menutype3);
         //mobilemenu
-        view()->share('mobilemenu', self::getMenu(MENUTYPE4));
+        if(Cache::has('menutype4'.$currentUrl)) {
+            $menutype4 = Cache::get('menutype4'.$currentUrl);
+        } else {
+            $menutype4 = self::getMenu(MENUTYPE4);
+            Cache::forever('menutype4'.$currentUrl, $menutype4);
+        }
+        view()->share('mobilemenu', $menutype4);
     }
 
     private function getArchives($type = POST, $orderColumn = 'start_date', $orderSort = 'desc', $limit = PAGINATE_SIDE)
@@ -86,12 +112,18 @@ class AppServiceProvider extends ServiceProvider
 
     private function getMenus($type, $name)
     {
-        $menu = DB::table('menus')
-            ->where('type', $type)
-            ->where('status', ACTIVE)
-            ->orderByRaw(DB::raw("position = '0', position"))
-            ->orderBy('name')
-            ->get();
+        $cacheName = 'menu_'.$type.'_'.$name;
+        if(Cache::has($cacheName)) {
+            $menu = Cache::get($cacheName);
+        } else {
+            $menu = DB::table('menus')
+                ->where('type', $type)
+                ->where('status', ACTIVE)
+                ->orderByRaw(DB::raw("position = '0', position"))
+                ->orderBy('name')
+                ->get();
+            Cache::forever($cacheName, $menu);
+        }
         view()->share($name, $menu);
     }
 
