@@ -598,10 +598,11 @@ a.gototop {
 .topmenu {
 	display:table;
 	ul.menu {
-		margin: 1.563rem 0;
-		padding: 0;
-		list-style: none;
-		display: table;
+	    margin: 1rem 0 1.563rem 0;
+	    padding: 0;
+	    list-style: none;
+	    display: table;
+	    color: #fff;
 		ul {
 			margin: 0;
 			z-index: 9999;
@@ -667,19 +668,25 @@ a.gototop {
 				color: #fff;
 			}
 		}
-		li.current {
-			a {
-				color: #d90000;
-			}
-			a:hover {
-				color: #fff;
-			}
-		}
+		// li.current {
+		// 	a {
+		// 		color: #d90000;
+		// 	}
+		// 	a:hover {
+		// 		color: #fff;
+		// 	}
+		// }
 		> li {
 			> a {
 				text-transform: uppercase;
 				padding: 0.938rem;
 				font-weight: bold;
+				background: #462103;
+				color: #eee;
+				// &:hover {
+				// 	background: #2A1300;
+				// 	color: #fff;
+				// }
 			}
 		}
 		span.dropBottom,span.dropRight {

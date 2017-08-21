@@ -11,6 +11,8 @@ var elixir = require('laravel-elixir');
  |
  */
 
+// su dung foundation version 6.3.0 de hoat dong: npm install foundation-sites@6.3.0
+
 elixir(function(mix) {
 
     mix.sass([
