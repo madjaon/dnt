@@ -18,15 +18,15 @@
 			</div>
 		</div>
 	</div>
-	<!-- <div class="form-group">
+	<div class="form-group" style="display: none;">
 		<label>Chiết khấu / Giảm giá</label>
 		<p>ex: 20% hoặc 1000000 . Bỏ trống nếu không có</p>
 		<div class="row">
 			<div class="col-sm-12">
-				<input name="discount" type="text" value="{{-- old('discount') --}}" class="form-control">
+				<input name="discount" type="text" value="{{ old('discount') }}" class="form-control">
 			</div>
 		</div>
-	</div> -->
+	</div>
 	@include('admin.post.postimage', array('isCreate' => true))
 </div>
 @elseif(isset($isEdit))
